@@ -1,20 +1,15 @@
 
-// Calculating the area of a rectangle using a tuple struct
+#[derive(Debug)]
 
-// Tuple struct implementation doesn't specify which one is width and which one is height
+/*
+    printing rectangle in debug mode. You can't do it in normal mode because
+    your rectangle struct doesn't implement 'std::fmt::Display'
+*/
 struct Rectangle(i32, i32);
 
 fn main() {
     
     let rect: Rectangle = Rectangle(10, 40);
 
-    println!("Area of the rectangle is: {}",
-        calc_rec_area(rect)
-    );
-}
-
-// This function takes input a Rectangle instance and returns the area of the rectangle
-
-fn calc_rec_area(rect: Rectangle) -> i32{
-    rect.0 * rect.1
+    println!("rect is {:#?}", rect);
 }
