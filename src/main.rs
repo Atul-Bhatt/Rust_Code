@@ -1,43 +1,32 @@
-use std::collections::HashMap;
+use std::io::{self, Read};
 
 /*
-    Given a list of integers, return the median and mode.
-    Use vectors and hashmaps
+    Conversting a string to pig latin
 */
 
 fn main() {
+    println!("Enter a string: ");
 
-    let mut vec = vec![1, 3, 45, 6, 77, 77, 4, 33, 65];
+    let mut s = String::new();
 
-    // sorting the vector
-    vec.sort();
+    io::stdin()
+        .read_line(&mut s)
+        .expect("Failed to read string.");
 
-    let vec_mid = vec.len() / 2;
-    // print the mod
-    if vec.len() % 2 != 0 {
-        println!("{}", vec[vec_mid] );
-    }
-    else {
-        println!("{}", (vec[vec_mid] + vec[vec_mid + 1]) / 2);
-    }
+    let mut pig_s = String::new();
 
-    // return mode of th list
-    let mut map = HashMap::new();
-
-    for i in vec {
-        let count = map.entry(i).or_insert(0);
-        *count += 1;
-    }
-
-    let mut max = 0;
-    let mut key = 0;
-
-    for (k, v) in map {
-        if max < v {
-            max = v;
-            key = k;
+    let vowels = "aeiouAEIOU";
+    
+    for word in s.split_whitespace() {
+        let first_char = word.chars().nth(0).unwrap(); 
+        if(vowels.contains(first_char)) {
+            pig_s = format!("{pig_s} {word}-hay");
+        }
+        else {
+            pig_s = format!("{pig_s} {word}-{first_char}ay");
         }
     }
 
-    println!("mode is {}", key);
+    println!("{}", pig_s);
+    
 }
