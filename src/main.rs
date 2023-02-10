@@ -1,32 +1,54 @@
 use std::io::{self, Read};
+use std::collections::HashMap;
+use std::collections::hash_map::Entry;
 
 /*
-    Conversting a string to pig latin
+    Employee database using vectors and hashmaps
 */
 
 fn main() {
-    println!("Enter a string: ");
 
-    let mut s = String::new();
+    let mut database: HashMap<String, Vec<String>>= HashMap::new();
 
-    io::stdin()
-        .read_line(&mut s)
-        .expect("Failed to read string.");
+    // Manually entering the departments with empty employee vector
 
-    let mut pig_s = String::new();
-
-    let vowels = "aeiouAEIOU";
+    database.insert(String::from("Engineering"), Vec::new());
+    database.insert(String::from("Sales"), Vec::new());
+    database.insert(String::from("Accounting"), Vec::new());
+    database.insert(String::from("HR"), Vec::new());
+    database.insert(String::from("Legal"), Vec::new());
     
-    for word in s.split_whitespace() {
-        let first_char = word.chars().nth(0).unwrap(); 
-        if(vowels.contains(first_char)) {
-            pig_s = format!("{pig_s} {word}-hay");
-        }
-        else {
-            pig_s = format!("{pig_s} {word}-{first_char}ay");
-        }
-    }
+    loop {
+        println!("Welcome to Employee Database");
+        println!("Please enter a command.");
+        println!("Here's an example -- Add Sheldon to Sales");
 
-    println!("{}", pig_s);
+        let mut command = String::new();
+
+        io::stdin()
+            .read_line(&mut command)
+            .expect("Cannot read string!");
+
+        let mut count = 0;
+        let mut department = String::new();
+        let mut employee_name = String::new();
+        
+        for word in command.split_whitespace() {
+            if count == 1 {
+                employee_name = word.to_string();
+            }
+            if count == 3 {
+                department = word.to_string();
+            }
+            count += 1;
+        }
+
+        match database.entry(department) {
+            Entry::Vacant(e) => { e.insert(vec![employee_name]); },
+            Entry::Occupied(mut e) => { e.get_mut().push(employee_name); },
+        }
+
+        println!("{:?}", database);
+    }
     
 }
