@@ -1,9 +1,11 @@
 use std::env;
 use std::process;
 
+use multithreading::run_multithreading;
 use practice_project::Config;
 
 mod inventory;
+mod multithreading;
 
 /*
     Creating grep like command line application
@@ -21,5 +23,7 @@ fn main() {
     //     process::exit(1);
     // }
 
-    inventory::run_inventory();
+    // inventory::run_inventory();
+
+    run_multithreading();
 }
