@@ -1,6 +1,7 @@
 use std::env;
 use std::process;
 
+use multithreading::run_channels;
 use multithreading::run_multithreading;
 use practice_project::Config;
 
@@ -25,5 +26,5 @@ fn main() {
 
     // inventory::run_inventory();
 
-    run_multithreading();
+    run_channels();
 }
